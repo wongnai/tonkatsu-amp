@@ -4,6 +4,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
+    "build": "npm run type-check && rollup -c",
+    "type-check": "tsc --noEmit",
     "test": "jest"
   },
   "repository": {
@@ -28,6 +30,10 @@
     "rollup-plugin-typescript2": "^0.24.2",
     "standard-version": "^7.0.0",
     "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-etc": "^1.7.0",
     "typescript": "^3.6.3"
   }
 }
