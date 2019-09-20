@@ -1,0 +1,28 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-config-airbnb",
+        "tslint-etc",
+        "tslint-config-prettier",
+        "tslint-react-hooks"
+    ],
+    "jsRules": {},
+    "rules": {
+        "semicolon": false,
+        "indent": [true, "tabs", 2],
+        "ter-indent": [true, "tab", 2],
+        "function-name": false,
+        "import-name": false,
+        "no-unused-declaration": true,
+        "no-unused-variable": true,
+        "variable-name": [
+            true,
+            "check-format",
+            "allow-leading-underscore",
+            "allow-pascal-case"
+        ],
+        "no-increment-decrement": false,
+        "no-else-after-return": false
+    },
+    "rulesDirectory": []
+}
