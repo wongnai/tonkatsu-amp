@@ -1,1 +1,2 @@
-console.log('Initialized project! 🎉')
+import htmlToAmp from './htmlToAmp'
+export { htmlToAmp }
