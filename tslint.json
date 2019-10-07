@@ -1,18 +1,25 @@
 {
     "defaultSeverity": "error",
     "extends": [
+				"tslint:recommended",
         "tslint-config-airbnb",
-        "tslint-etc",
-        "tslint-config-prettier",
-        "tslint-react-hooks"
-    ],
-    "jsRules": {},
+        "tslint-config-prettier"
+		],
+		"linterOptions": {
+			"exclude": [
+				"**/*.js",
+				"**/*.d.ts",
+				"node_modules/**/*.ts"
+			]
+		},
     "rules": {
+				"no-console": false,
         "semicolon": false,
-        "indent": [true, "tabs", 2],
-        "ter-indent": [true, "tab", 2],
         "function-name": false,
-        "import-name": false,
+				"import-name": false,
+				"ordered-imports": false,
+				"object-literal-sort-keys": false,
+				"interface-name": false,
         "no-unused-declaration": true,
         "no-unused-variable": true,
         "variable-name": [
@@ -23,6 +30,5 @@
         ],
         "no-increment-decrement": false,
         "no-else-after-return": false
-    },
-    "rulesDirectory": []
+    }
 }

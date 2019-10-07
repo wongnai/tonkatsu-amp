@@ -1,4 +1,6 @@
 module.exports = {
+	"preset": "ts-jest",
+	"testEnvironment": "node",
 	"transform": {
 		"\\.(ts)$": "ts-jest",
 	},
@@ -7,11 +9,8 @@ module.exports = {
 		"node_modules"
 	],
 	"testMatch": [
-		"<rootDir>/src/**/__tests__/**/*.(ts)",
-		"<rootDir>/src/**/?(*.)(spec|test).(ts)"
-	],
-	"moduleFileExtensions": [
-		"ts",
+		"<rootDir>/**/__tests__/**/*.(ts)",
+		"<rootDir>/**/?(*.)(spec|test).(ts)"
 	],
 	"collectCoverageFrom": [
 		"src/**/*.{ts}"
@@ -25,5 +24,6 @@ module.exports = {
 	"coverageReporters": [
 		"html",
 		"text"
-	]
+	],
+	"verbose": true
 }
