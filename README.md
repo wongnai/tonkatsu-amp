@@ -57,4 +57,6 @@ TBA
 ### [Contributing Guide]()
 
 ## License
+(C) 2019 Wongnai Media Co, Ltd.  
+
 Tonkatsu-AMP is [MIT licensed](https://github.com/wongnai/tonkatsu-amp/blob/master/LICENSE).
