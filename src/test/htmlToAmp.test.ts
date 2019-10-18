@@ -1,5 +1,5 @@
 import { parse, DefaultTreeDocument } from 'parse5'
-import { htmlToAmp } from '../src'
+import { htmlToAmp } from '../'
 
 const expectTransform = async (htmlTag: string, ampTag: string) => {
 	const parsedHTMLTag = parse(htmlTag.trim()) as DefaultTreeDocument

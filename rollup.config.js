@@ -15,7 +15,8 @@ module.exports = {
 		},
 		{
 			file: 'lib/index.iife.js',
-			format: 'iife'
+			format: 'iife',
+			name: 'tonakatsu-amp.iife.js',
 		},
 	],
 	plugins: [
