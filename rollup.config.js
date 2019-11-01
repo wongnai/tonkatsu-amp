@@ -1,17 +1,19 @@
-import { terser } from "rollup-plugin-terser"
+import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
 import includePaths from 'rollup-plugin-includepaths'
+import builtins from 'rollup-plugin-node-builtins'
+import globals from 'rollup-plugin-node-globals'
 
 module.exports = {
 	input: 'src/index.ts',
 	output: [
 		{
 			file: 'lib/index.js',
-			format: 'cjs'
+			format: 'cjs',
 		},
 		{
 			file: 'lib/index.es.js',
-			format: 'esm'
+			format: 'esm',
 		},
 		{
 			file: 'lib/index.iife.js',
@@ -20,6 +22,8 @@ module.exports = {
 		},
 	],
 	plugins: [
+		globals(),
+		builtins(),
 		terser({ 
 			exclude: [ '*es*' ]
 		}),
@@ -28,6 +32,12 @@ module.exports = {
 			paths: [
 				"src"
 			]
-		})
+		}),
+	],
+	external: [
+		"parse5",
+		"lodash",
+		"image-size",
+		"cache-manager",
 	]
 }
