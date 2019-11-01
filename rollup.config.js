@@ -1,8 +1,6 @@
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
 import includePaths from 'rollup-plugin-includepaths'
-import builtins from 'rollup-plugin-node-builtins'
-import globals from 'rollup-plugin-node-globals'
 
 const globalsLibraries = {
 	parse5: "parse5",
@@ -29,8 +27,6 @@ module.exports = {
 		},
 	],
 	plugins: [
-		globals(),
-		builtins(),
 		terser({ 
 			exclude: [ '*es*' ]
 		}),

@@ -29,8 +29,6 @@
     "prettier": "1.18.2",
     "rollup": "1.21.4",
     "rollup-plugin-includepaths": "0.2.3",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-terser": "5.1.2",
     "rollup-plugin-typescript2": "0.24.2",
     "standard-version": "7.0.0",
@@ -42,10 +40,10 @@
     "typescript": "3.6.3"
   },
   "dependencies": {
-    "@types/cache-manager": "^2.10.0",
-    "@types/ioredis": "^4.0.18",
-    "cache-manager": "^2.10.0",
-    "cache-manager-ioredis": "^1.0.1",
+    "@types/cache-manager": "2.10.0",
+    "@types/ioredis": "4.0.18",
+    "cache-manager": "2.10.0",
+    "cache-manager-ioredis": "1.0.1",
     "image-size": "0.7.4",
     "lodash": "4.17.15",
     "parse5": "5.1.0"
