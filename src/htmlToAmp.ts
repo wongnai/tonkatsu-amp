@@ -16,7 +16,9 @@ function filterOut(node: parse5.DefaultTreeElement) {
 	node.childNodes.length = 0
 }
 
-export default async function htmlToAmp(ast: parse5.DefaultTreeDocument) {
+export default async function htmlToAmp(htmlString: string) {
+	const ast = parse5.parse(htmlString.trim()) as parse5.DefaultTreeDocument
+
 	await walk(ast, async node => {
 		const treeNode = node as parse5.DefaultTreeElement
 		switch (treeNode.nodeName) {
@@ -63,7 +65,6 @@ export default async function htmlToAmp(ast: parse5.DefaultTreeDocument) {
 		}
 	})
 	return parse5.serialize(
-		((ast as parse5.DefaultTreeDocument)
-			.childNodes[0] as parse5.DefaultTreeDocument).childNodes[1],
+		(ast.childNodes[0] as parse5.DefaultTreeDocument).childNodes[1],
 	)
 }

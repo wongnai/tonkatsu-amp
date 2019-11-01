@@ -1,9 +1,7 @@
-import { parse, DefaultTreeDocument } from 'parse5'
 import { htmlToAmp } from '../'
 
 const expectTransform = async (htmlTag: string, ampTag: string) => {
-	const parsedHTMLTag = parse(htmlTag.trim()) as DefaultTreeDocument
-	expect(await htmlToAmp(parsedHTMLTag)).toBe(ampTag)
+	expect(await htmlToAmp(htmlTag)).toBe(ampTag)
 }
 
 describe('Convert Image to <amp-img>', () => {
