@@ -1,18 +1,13 @@
 import http from 'http'
 import https from 'https'
-import sizeOf from 'image-size'
+import { imageSize } from 'image-size'
+import { ISizeCalculationResult } from 'image-size/dist/types/interface'
 import { parse as urlParse } from 'url'
-import cache from './cache'
-
-interface ImageInfo {
-	width: number
-	height: number
-	type: string
-}
+import Cache from 'modules/lib/cache'
 
 const CACHE_PREFIX = 'img_size:'
 
-export function getImageSize(url: string): Promise<ImageInfo> {
+export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 	return new Promise((resolve, reject) => {
 		let requestFunction
 		const parsedUrl = urlParse(url)
@@ -25,27 +20,27 @@ export function getImageSize(url: string): Promise<ImageInfo> {
 			return reject(new Error('Unsupported scheme'))
 		}
 
-		const req = requestFunction(parsedUrl, res => {
+		const req = requestFunction(parsedUrl, (res) => {
 			let chunks = Buffer.alloc(0)
 			let lastError: Error
 
 			if (res.statusCode !== 200) {
 				req.abort()
-				reject('Cannot fetch image')
+				reject(Error('Cannot fetch image'))
 				return
 			}
 			const contentType = res.headers['content-type']
 			if (!contentType || !contentType.startsWith('image/')) {
 				req.abort()
-				reject('File is not image')
+				reject(Error('File is not image'))
 				return
 			}
 
-			res.on('data', chunk => {
+			res.on('data', (chunk) => {
 				chunks = Buffer.concat([chunks, chunk])
 
 				try {
-					const size = sizeOf(chunks)
+					const size = imageSize(chunks)
 
 					if (size) {
 						req.abort()
@@ -61,12 +56,15 @@ export function getImageSize(url: string): Promise<ImageInfo> {
 			})
 		})
 
-		req.on('error', err => {
+		req.on('error', (err) => {
 			reject(err)
 		})
 	})
 }
 
-export function getCachedImageSize(url: string): Promise<ImageInfo> {
+export function getCachedImageSize(
+	url: string,
+): Promise<ISizeCalculationResult> {
+	const cache = Cache()
 	return cache.wrap(CACHE_PREFIX + url, () => getImageSize(url))
 }

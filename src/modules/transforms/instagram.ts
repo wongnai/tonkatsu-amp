@@ -1,17 +1,17 @@
 import parse5 from 'parse5'
-import { getAttribute } from 'domUtils'
-import { walk } from 'walk'
-import { responsive, width, height } from '../constants'
+import { getAttribute } from 'modules/utils/dom'
+import { walk } from 'modules/lib/walk'
+import { responsive, width, height } from 'modules/constants/image'
 
 export default function transformInstagram(node: parse5.DefaultTreeElement) {
 	const regex = /https:\/\/www.instagram\.com\/p\/([A-Za-z0-9]+)\//
 
-	return walk(node, async subNode => {
+	return walk(node, async (subNode) => {
 		const treeNode = subNode as parse5.DefaultTreeElement
 		switch (treeNode.nodeName) {
 			case 'a':
 				if (
-					getAttribute(treeNode, 'href')!.search(
+					getAttribute(treeNode, 'href')?.search(
 						'https://www.instagram.com/',
 					) === 0
 				) {

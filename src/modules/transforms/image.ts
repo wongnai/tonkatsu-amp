@@ -1,8 +1,12 @@
 import { getCachedImageSize } from 'imageSize'
 import { filter } from 'lodash'
 import parse5 from 'parse5'
-import { getAttribute, setAttribute, wrap } from 'domUtils'
-import { responsive } from '../constants'
+import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
+import {
+	DEFAULT_HEIGHT,
+	DEFAULT_WIDTH,
+	responsive,
+} from 'modules/constants/image'
 
 export default async function transformImg(node: parse5.DefaultTreeElement) {
 	let imageSize
@@ -15,13 +19,13 @@ export default async function transformImg(node: parse5.DefaultTreeElement) {
 	}
 	node.nodeName = 'amp-img'
 	node.tagName = 'amp-img'
-	node.attrs = filter(node.attrs, attr => attr.name !== 'width')
-	node.attrs = filter(node.attrs, attr => attr.name !== 'height')
+	node.attrs = filter(node.attrs, (attr) => attr.name !== 'width')
+	node.attrs = filter(node.attrs, (attr) => attr.name !== 'height')
 	node.attrs = [
 		...node.attrs,
 		responsive,
-		{ name: 'width', value: imageSize.width.toString() },
-		{ name: 'height', value: imageSize.height.toString() },
+		{ name: 'width', value: imageSize.width?.toString() ?? DEFAULT_WIDTH },
+		{ name: 'height', value: imageSize.height?.toString() ?? DEFAULT_HEIGHT },
 	]
 
 	const wrapper = (parse5.parseFragment(

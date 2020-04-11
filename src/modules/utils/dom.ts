@@ -5,7 +5,10 @@ export function getAttribute(
 	node: parse5.DefaultTreeElement,
 	nameToFind: string,
 ) {
-	return get(node.attrs.find(e => e.name === nameToFind), 'value')
+	return get(
+		node.attrs.find((e) => e.name === nameToFind),
+		'value',
+	)
 }
 
 export function setAttribute(

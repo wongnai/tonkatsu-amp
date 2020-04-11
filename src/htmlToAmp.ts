@@ -1,15 +1,15 @@
 import parse5 from 'parse5'
-import { walk } from './walk'
-import { getAttribute } from './domUtils'
-import transformImg from 'transforms/image'
-import transformInstagram from 'transforms/instagram'
-import transformTwitter from 'transforms/twitter'
-import transformYoutube from 'transforms/youtube'
-import transformFacebook from 'transforms/facebook'
-import transformIframe from 'transforms/iframe'
-import transformFont from 'transforms/fonts'
+import { walk } from 'modules/lib/walk'
+import { getAttribute } from 'modules/utils/dom'
+import transformImg from 'modules/transforms/image'
+import transformInstagram from 'modules/transforms/instagram'
+import transformTwitter from 'modules/transforms/twitter'
+import transformYoutube from 'modules/transforms/youtube'
+import transformFacebook from 'modules/transforms/facebook'
+import transformIframe from 'modules/transforms/iframe'
+import transformFont from 'modules/transforms/fonts'
 
-function filterOut(node: parse5.DefaultTreeElement) {
+const filterOut = (node: parse5.DefaultTreeElement) => {
 	node.nodeName = 'div'
 	node.tagName = 'div'
 	node.attrs.length = 0
@@ -19,7 +19,7 @@ function filterOut(node: parse5.DefaultTreeElement) {
 export default async function htmlToAmp(htmlString: string) {
 	const ast = parse5.parse(htmlString.trim()) as parse5.DefaultTreeDocument
 
-	await walk(ast, async node => {
+	await walk(ast, async (node) => {
 		const treeNode = node as parse5.DefaultTreeElement
 		switch (treeNode.nodeName) {
 			case 'img':
@@ -33,20 +33,16 @@ export default async function htmlToAmp(htmlString: string) {
 					case 'twitter-tweet':
 						await transformTwitter(treeNode)
 						break
+					default:
+						break
 				}
 				break
 			case 'iframe':
 				if (!getAttribute(treeNode, 'src')) {
 					filterOut(treeNode)
-				} else if (
-					getAttribute(treeNode, 'src')!.search('https://www.youtube.com/') ===
-					0
-				) {
+				} else if (getAttribute(treeNode, 'src')?.search(/youtube/) !== -1) {
 					transformYoutube(treeNode)
-				} else if (
-					getAttribute(treeNode, 'src')!.search('https://www.facebook.com/') ===
-					0
-				) {
+				} else if (getAttribute(treeNode, 'src')?.search(/facebook/) !== -1) {
 					transformFacebook(treeNode)
 				} else {
 					transformIframe(treeNode)
@@ -59,9 +55,9 @@ export default async function htmlToAmp(htmlString: string) {
 				break
 			case 'object':
 				filterOut(treeNode)
-				return
+				break
 			default:
-				return
+				break
 		}
 	})
 	return parse5.serialize(
