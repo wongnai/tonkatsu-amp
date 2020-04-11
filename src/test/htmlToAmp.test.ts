@@ -1,4 +1,4 @@
-import { htmlToAmp } from '../'
+import { htmlToAmp } from '..'
 
 const expectTransform = async (htmlTag: string, ampTag: string) => {
 	expect(await htmlToAmp(htmlTag)).toBe(ampTag)

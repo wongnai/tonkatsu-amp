@@ -6,7 +6,7 @@ import { responsive, width, height } from 'modules/constants/image'
 export default function transformInstagram(node: parse5.DefaultTreeElement) {
 	const regex = /https:\/\/www.instagram\.com\/p\/([A-Za-z0-9]+)\//
 
-	return walk(node, async (subNode) => {
+	return walk(node, (subNode) => {
 		const treeNode = subNode as parse5.DefaultTreeElement
 		switch (treeNode.nodeName) {
 			case 'a':
@@ -31,6 +31,8 @@ export default function transformInstagram(node: parse5.DefaultTreeElement) {
 					]
 					node.childNodes.splice(0, node.childNodes.length)
 				}
+				break
+			default:
 				break
 		}
 	})

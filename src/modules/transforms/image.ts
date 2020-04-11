@@ -1,4 +1,4 @@
-import { getCachedImageSize } from 'imageSize'
+import { getCachedImageSize } from 'modules/utils/imageSize'
 import { filter } from 'lodash'
 import parse5 from 'parse5'
 import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
@@ -10,9 +10,9 @@ import {
 
 export default async function transformImg(node: parse5.DefaultTreeElement) {
 	let imageSize
-	const imageSrc = getAttribute(node, 'src')
+	const imageSrc = getAttribute(node, 'src') ?? ''
 	try {
-		imageSize = await getCachedImageSize(imageSrc!)
+		imageSize = await getCachedImageSize(imageSrc)
 	} catch (e) {
 		console.warn(`Failed to get image size: ${imageSrc}`, e)
 		imageSize = { width: 1920, height: 1280 }

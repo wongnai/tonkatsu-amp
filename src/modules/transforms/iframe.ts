@@ -10,12 +10,10 @@ export default function transformIframe(node: parse5.DefaultTreeElement) {
 	const frameWidth = getAttribute(node, 'width') ?? DEFAULT_WIDTH
 	const frameHeight = getAttribute(node, 'height') ?? DEFAULT_HEIGHT
 	let src = getAttribute(node, 'src') ?? ''
-	const regexWithOutProtocol = /^\/\//
-	const regexHttp = /^http\:\/\//
-	if (regexWithOutProtocol.test(src)) {
+	if (src.startsWith('//')) {
 		src = `https:${src}`
 	}
-	if (regexHttp.test(src)) {
+	if (src.startsWith('http://')) {
 		src = src.replace('http://', 'https://')
 	}
 
@@ -56,7 +54,7 @@ export default function transformIframe(node: parse5.DefaultTreeElement) {
 		responsive,
 		{ name: 'width', value: frameWidth },
 		{ name: 'height', value: frameHeight },
-		{ name: 'src', value: src! },
+		{ name: 'src', value: src },
 		{ name: 'sandbox', value: 'allow-scripts allow-same-origin' },
 	]
 
