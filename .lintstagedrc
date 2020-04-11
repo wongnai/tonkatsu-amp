@@ -1,6 +1,6 @@
 {
 	"*.ts": [
 		"prettier --write",
-		"git add"
+		"eslint --fix .",
 	]
 }

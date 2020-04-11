@@ -1,11 +1,15 @@
 import parse5 from 'parse5'
-import { getAttribute, setAttribute, wrap } from '../domUtils'
-import { DEFAULT_WIDTH, DEFAULT_HEIGHT, responsive } from '../constants'
+import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
+import {
+	DEFAULT_WIDTH,
+	DEFAULT_HEIGHT,
+	responsive,
+} from 'modules/constants/image'
 
 export default function transformFacebook(node: parse5.DefaultTreeElement) {
-	const postWidth = getAttribute(node, 'width') || DEFAULT_WIDTH
-	const postHeight = getAttribute(node, 'height') || DEFAULT_HEIGHT
-	const src = decodeURIComponent(getAttribute(node, 'src')!)
+	const postWidth = getAttribute(node, 'width') ?? DEFAULT_WIDTH
+	const postHeight = getAttribute(node, 'height') ?? DEFAULT_HEIGHT
+	const src = decodeURIComponent(getAttribute(node, 'src') ?? '')
 	const regex = /https:\/\/www\.facebook\.com\/plugins\/(.+)\.php\?href=(.+)/
 	const matches = regex.exec(src)
 	if (!matches) {
@@ -16,8 +20,8 @@ export default function transformFacebook(node: parse5.DefaultTreeElement) {
 	node.childNodes = []
 	node.attrs = [
 		responsive,
-		{ name: 'width', value: postWidth! },
-		{ name: 'height', value: postHeight! },
+		{ name: 'width', value: postWidth },
+		{ name: 'height', value: postHeight },
 		{ name: 'data-embed-as', value: matches[1] },
 		{ name: 'data-href', value: matches[2] },
 	]

@@ -1,17 +1,19 @@
 import parse5 from 'parse5'
-import { getAttribute, setAttribute, wrap } from '../domUtils'
-import { DEFAULT_WIDTH, DEFAULT_HEIGHT, responsive } from '../constants'
+import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
+import {
+	DEFAULT_WIDTH,
+	DEFAULT_HEIGHT,
+	responsive,
+} from 'modules/constants/image'
 
 export default function transformIframe(node: parse5.DefaultTreeElement) {
-	const frameWidth = getAttribute(node, 'width') || DEFAULT_WIDTH
-	const frameHeight = getAttribute(node, 'height') || DEFAULT_HEIGHT
-	let src = getAttribute(node, 'src')!
-	const regex = /^\/\//
-	const regexHttp = /^http\:\/\//
-	if (regex.test(src)) {
+	const frameWidth = getAttribute(node, 'width') ?? DEFAULT_WIDTH
+	const frameHeight = getAttribute(node, 'height') ?? DEFAULT_HEIGHT
+	let src = getAttribute(node, 'src') ?? ''
+	if (src.startsWith('//')) {
 		src = `https:${src}`
 	}
-	if (regexHttp.test(src)) {
+	if (src.startsWith('http://')) {
 		src = src.replace('http://', 'https://')
 	}
 
@@ -50,9 +52,9 @@ export default function transformIframe(node: parse5.DefaultTreeElement) {
 	node.childNodes.push(placeholder)
 	node.attrs = [
 		responsive,
-		{ name: 'width', value: frameWidth! },
-		{ name: 'height', value: frameHeight! },
-		{ name: 'src', value: src! },
+		{ name: 'width', value: frameWidth },
+		{ name: 'height', value: frameHeight },
+		{ name: 'src', value: src },
 		{ name: 'sandbox', value: 'allow-scripts allow-same-origin' },
 	]
 
