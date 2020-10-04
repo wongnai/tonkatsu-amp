@@ -1,13 +1,14 @@
-import parse5 from 'parse5'
-import { walk } from 'modules/lib/walk'
-import { getAttribute } from 'modules/utils/dom'
+import cacheManager from 'cache-manager'
+import transformFacebook from 'modules/transforms/facebook'
+import transformFont from 'modules/transforms/fonts'
+import transformIframe from 'modules/transforms/iframe'
 import transformImg from 'modules/transforms/image'
 import transformInstagram from 'modules/transforms/instagram'
 import transformTwitter from 'modules/transforms/twitter'
 import transformYoutube from 'modules/transforms/youtube'
-import transformFacebook from 'modules/transforms/facebook'
-import transformIframe from 'modules/transforms/iframe'
-import transformFont from 'modules/transforms/fonts'
+import { getAttribute } from 'modules/utils/dom'
+import { walk } from 'modules/utils/walk'
+import parse5 from 'parse5'
 
 const filterOut = (node: parse5.DefaultTreeElement) => {
 	node.nodeName = 'div'
@@ -16,14 +17,17 @@ const filterOut = (node: parse5.DefaultTreeElement) => {
 	node.childNodes.length = 0
 }
 
-export default async function htmlToAmp(htmlString: string) {
+export default async function htmlToAmp(
+	htmlString: string,
+	cache: cacheManager.Cache,
+) {
 	const ast = parse5.parse(htmlString.trim()) as parse5.DefaultTreeDocument
 
 	await walk(ast, async (node) => {
 		const treeNode = node as parse5.DefaultTreeElement
 		switch (treeNode.nodeName) {
 			case 'img':
-				await transformImg(treeNode)
+				await transformImg(treeNode, cache)
 				break
 			case 'blockquote':
 				switch (getAttribute(treeNode, 'class')) {

@@ -1,9 +1,9 @@
+import cacheManager from 'cache-manager'
 import http from 'http'
 import https from 'https'
 import { imageSize } from 'image-size'
 import { ISizeCalculationResult } from 'image-size/dist/types/interface'
 import { parse as urlParse } from 'url'
-import Cache from 'modules/lib/cache'
 
 const CACHE_PREFIX = 'img_size:'
 
@@ -42,6 +42,8 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 				try {
 					const size = imageSize(chunks)
 
+					console.error(size)
+
 					if (size) {
 						req.abort()
 						resolve(size)
@@ -64,7 +66,7 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 
 export function getCachedImageSize(
 	url: string,
+	cache: cacheManager.Cache,
 ): Promise<ISizeCalculationResult> {
-	const cache = Cache()
 	return cache.wrap(CACHE_PREFIX + url, () => getImageSize(url))
 }

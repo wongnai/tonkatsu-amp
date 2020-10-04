@@ -1,7 +1,7 @@
-import parse5 from 'parse5'
+import { height, responsive, width } from 'modules/constants/image'
 import { getAttribute } from 'modules/utils/dom'
-import { walk } from 'modules/lib/walk'
-import { responsive, width, height } from 'modules/constants/image'
+import { walk } from 'modules/utils/walk'
+import parse5 from 'parse5'
 
 export default function transformInstagram(node: parse5.DefaultTreeElement) {
 	const regex = /https:\/\/www.instagram\.com\/p\/([A-Za-z0-9]+)\//

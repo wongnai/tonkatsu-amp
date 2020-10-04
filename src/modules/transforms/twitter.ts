@@ -1,7 +1,7 @@
-import parse5 from 'parse5'
-import { walk } from 'modules/lib/walk'
+import { height, responsive, width } from 'modules/constants/image'
 import { getAttribute } from 'modules/utils/dom'
-import { responsive, width, height } from 'modules/constants/image'
+import { walk } from 'modules/utils/walk'
+import parse5 from 'parse5'
 
 export default function transformTwitter(node: parse5.DefaultTreeElement) {
 	const regex = /https:\/\/twitter\.com\/.+\/status[es]*\/([0-9]+).*/

@@ -1,6 +1,6 @@
+import includePaths from 'rollup-plugin-includepaths'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
-import includePaths from 'rollup-plugin-includepaths'
 
 const globalsLibraries = {
 	parse5: 'parse5',
@@ -10,6 +10,7 @@ const globalsLibraries = {
 	'image-size': 'image-size',
 	url: 'url',
 	'cache-manager': 'cache-manager',
+	'cache-manager-ioredis': 'cache-manager-ioredis',
 }
 
 module.exports = {
@@ -35,5 +36,11 @@ module.exports = {
 			paths: ['src'],
 		}),
 	],
-	external: ['parse5', 'lodash', 'image-size', 'cache-manager'],
+	external: [
+		'parse5',
+		'lodash',
+		'image-size',
+		'cache-manager',
+		'cache-manager-ioredis',
+	],
 }

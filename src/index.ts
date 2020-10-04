@@ -1,3 +1,3 @@
-import htmlToAmp from './htmlToAmp'
+import App from './App'
 
-export { htmlToAmp }
+export default App
