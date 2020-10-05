@@ -23,7 +23,7 @@ module.exports = {
 	overrides: [typescriptConfig],
 	rules: {
 		semi: [2, 'never'],
-		'no-unused-vars': [2, { args: 'none' }], //ex (state, props) -> props never used
+		'no-unused-vars': [2, { args: 'none' }], // ex (state, props) -> props never used
 		indent: [0, 'tab', { SwitchCase: 1 }], // after git commit -> failed
 		'space-before-function-paren': [0],
 		'no-underscore-dangle': [0], // _ before action name in actions.js
@@ -77,7 +77,7 @@ module.exports = {
 		'no-else-return': [0, { allowElseIf: true }],
 		'prefer-object-spread': [0],
 
-		//import
+		// import
 		'import/no-extraneous-dependencies': [0], // Forbid the import of external modules that are not declared in the package.json"s dependencies, devDependencies, optionalDependencies or peerDependencies.
 		'import/first': [0], // imports that come after non-import statements.
 		'import/no-unresolved': [0],
@@ -87,7 +87,7 @@ module.exports = {
 		'import/newline-after-import': [0],
 		'import/no-dynamic-require': [0],
 
-		//test
+		// test
 		'jest/no-disabled-tests': 'warn',
 		'jest/no-focused-tests': 'error',
 		'jest/no-identical-title': 'error',

@@ -42,8 +42,6 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 				try {
 					const size = imageSize(chunks)
 
-					console.error(size)
-
 					if (size) {
 						req.abort()
 						resolve(size)

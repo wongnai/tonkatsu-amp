@@ -1,28 +1,53 @@
 declare module 'cache-manager-ioredis' {
-	import { RedisOptions, ClusterOptions, ClusterNode, KeyType } from 'ioredis'
-	import { caching } from 'cache-manager'
+	import { Cache, CacheOptions, CachingConfig, Store } from 'cache-manager'
+	import * as IORedis from 'ioredis'
 
-	function create(port?: number, host?: string, options?: RedisOptions): any
-	function create(host?: string, options?: RedisOptions): any
-	function create(
-		options?: RedisOptions & { clusterConfig: CMIoRedis.ClusterConfig },
-	): any
-	export default create
+	interface SingleNodeCache extends Cache {
+		store: RedisSingleNodeStore
+	}
 
-	export namespace CMIoRedis {
-		interface ClusterConfig {
-			nodes: ClusterNode[]
-			options?: ClusterOptions
-		}
+	interface ClusterCache extends Cache {
+		store: RedisClusterStore
+	}
 
-		interface RedisCache extends ReturnType<typeof caching> {
-			name: 'redis'
+	interface RedisStoreConstructor {
+		create:
+			| ((...options: RedisStoreSingleNodeConfig[]) => RedisSingleNodeStore)
+			| ((...options: RedisStoreClusterConfig[]) => RedisClusterStore)
+	}
 
-			reset(cb?: (err: Error, result: string) => any): void
-			keys(cb?: (err: Error, result: string[]) => any): void
-			keys(pattern: string, cb?: (err: Error, result: string[]) => any): void
-			ttl(key: KeyType, cb: (err: Error, res: number) => void): void
-			isCacheableValue(value: any): boolean
-		}
+	type RedisStoreSingleNodeConfig = CachingConfig &
+		IORedis.RedisOptions & {
+			store: RedisStoreConstructor
+			max?: number
+		} & CacheOptions
+
+	type RedisStoreClusterConfig = CachingConfig & {
+		store: RedisStoreConstructor
+		max?: number
+		clusterConfig: ClusterOptions
+	} & CacheOptions
+
+	interface RedisStore extends Store {
+		getClient(): IORedis.Redis | IORedis.Cluster
+		name: 'redis'
+		isCacheableValue(value: any): boolean
+		del(...args: any[]): Promise<any>
+		reset(...args: any[]): Promise<any>
+		keys(...args: any[]): Promise<any>
+		ttl(...args: any[]): Promise<any>
+	}
+
+	interface RedisSingleNodeStore extends RedisStore {
+		getClient(): IORedis.Redis
+	}
+
+	interface RedisClusterStore extends RedisStore {
+		getClient(): IORedis.Cluster
+	}
+
+	interface ClusterOptions {
+		nodes: IORedis.ClusterNode[]
+		options: IORedis.ClusterOptions
 	}
 }

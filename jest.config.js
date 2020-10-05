@@ -9,6 +9,7 @@ module.exports = {
 		'<rootDir>/**/__tests__/**/*.(ts)',
 		'<rootDir>/**/?(*.)(spec|test).(ts)',
 	],
+	testTimeout: 60_000,
 	collectCoverageFrom: ['src/**/*.{ts}'],
 	transformIgnorePatterns: ['<rootDir>/node_modules/(?!lodash-es/.*)'],
 	moduleNameMapper: {
