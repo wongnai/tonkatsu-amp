@@ -1,22 +1,23 @@
-import { htmlToAmp } from '..'
+import App from '..'
 
 const expectTransform = async (htmlTag: string, ampTag: string) => {
-	expect(await htmlToAmp(htmlTag)).toBe(ampTag)
+	const app = new App()
+	expect(await app.amplify(htmlTag)).toBe(ampTag)
 }
 
 describe('Convert Image to <amp-img>', () => {
 	test.each([
 		[
-			'<img src="https://picsum.photos/id/59/1920/1080" />',
-			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img src="https://picsum.photos/id/59/1920/1080" layout="responsive" width="1920" height="1080"></amp-img></div>',
+			'<img src="https://dummyimage.com/1920x1080/000/fff.jpg" />',
+			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img src="https://dummyimage.com/1920x1080/000/fff.jpg" layout="responsive" width="1920" height="1080"></amp-img></div>',
 		],
 		[
-			'<img src="https://picsum.photos/id/871/1080/1920" />',
-			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img src="https://picsum.photos/id/871/1080/1920" layout="responsive" width="1080" height="1920"></amp-img></div>',
+			'<img src="https://dummyimage.com/1080x1920/000/fff.jpg" />',
+			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img src="https://dummyimage.com/1080x1920/000/fff.jpg" layout="responsive" width="1080" height="1920"></amp-img></div>',
 		],
 		[
-			'<img alt="alt=&quot;iRuler Express&quot;" src="https://www.blognone.com/sites/default/files/externals/3d24d62491fadc2d60705ad40bda0784.png" ><img alt="iRuler Express" src="http://www.thaiware.com/upload_misc/software/2015_06/images/12085_15061911184757_161880.png" width="50%" /><img alt="iRuler Express" src="http://www.thaiware.com/upload_misc/software/2015_06/images/12085_150619111846MI_161880.png" width="50%" /><img alt="iRuler Express" src="http://www.thaiware.com/upload_misc/software/2015_06/images/12085_150619111843Sw_161880.png" width="50%" /></p>\n<p>สามารถดาวน์โหลดได้ในระบบ iOS คลิกลิงก์ด้านล่างเพื่อดาวน์โหลดได้ที่ App Store</p>\n<p><a href="https://itunes.apple.com/us/app/iruler-express/id997794197?l=th&amp;ls=1&amp;mt=8"><img alt="No Description" src="https://www.blognone.com/sites/default/files/externals/834435d3ead34adddadc7e92dbf1f615.jpg" ></a></p>\n<p><a href="https://itunes.apple.com/us/app/measure-map-pro/id1106880437?l=th&amp;ls=1&amp;mt=8">Dowanload iRuler Express</a></p>\n<p>ท่านสามารถติดตามข่าวสารของแอพพลิเคชันได้ที่</p>\n<p><a href="https://www.facebook.com/pages/Funbook/365509203579475">https://www.facebook.com/pages/Funbook</a></p>',
-			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="alt=&quot;iRuler Express&quot;" src="https://www.blognone.com/sites/default/files/externals/3d24d62491fadc2d60705ad40bda0784.png" layout="responsive" width="281" height="500"></amp-img></div><div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="iRuler Express" src="http://www.thaiware.com/upload_misc/software/2015_06/images/12085_15061911184757_161880.png" layout="responsive" width="1920" height="1280"></amp-img></div><div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="iRuler Express" src="http://www.thaiware.com/upload_misc/software/2015_06/images/12085_150619111846MI_161880.png" layout="responsive" width="1920" height="1280"></amp-img></div><div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="iRuler Express" src="http://www.thaiware.com/upload_misc/software/2015_06/images/12085_150619111843Sw_161880.png" layout="responsive" width="1920" height="1280"></amp-img></div><p></p>\n<p>สามารถดาวน์โหลดได้ในระบบ iOS คลิกลิงก์ด้านล่างเพื่อดาวน์โหลดได้ที่ App Store</p>\n<p><a href="https://itunes.apple.com/us/app/iruler-express/id997794197?l=th&amp;ls=1&amp;mt=8"><div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="No Description" src="https://www.blognone.com/sites/default/files/externals/834435d3ead34adddadc7e92dbf1f615.jpg" layout="responsive" width="118" height="40"></amp-img></div></a></p>\n<p><a href="https://itunes.apple.com/us/app/measure-map-pro/id1106880437?l=th&amp;ls=1&amp;mt=8">Dowanload iRuler Express</a></p>\n<p>ท่านสามารถติดตามข่าวสารของแอพพลิเคชันได้ที่</p>\n<p><a href="https://www.facebook.com/pages/Funbook/365509203579475">https://www.facebook.com/pages/Funbook</a></p>',
+			'<p>จาก<a href="https://www.blognone.com/node/117969">ปัญหาความขัดแย้งภายใน Ubisoft เรื่องวัฒนธรรมการทำงาน</a> ที่<a href="https://www.blognone.com/node/117418">ทำให้ผู้บริหารต้องออกจากบริษัทไปหลายคน</a> ล่าสุด  Yves Guillemot ผู้ก่อตั้งและซีอีโอของ Ubisoft ส่งอีเมลภายในถึงพนักงาน เพื่อสรุปสถานการณ์ที่เกิดขึ้นหลังตั้งทีมสอบสวนเรื่องนี้เป็นการภายใน</p>\n<p>เนื้อหาในอีเมลถูกนำมาเผยแพร่ต่อทาง Gamespot มีประเด็นดังนี้</p>\n<ul>\n<li>จากการสอบสวนภายในบริษัท มีพนักงานเข้าร่วมให้ข้อมูลกว่า 14,000 คน พบว่ามีพนักงานถึง 25% ที่เคยพบหรือเคยเห็น "การปฏิบัติตัวที่ไม่เหมาะสม" ในรูปแบบต่างๆ ช่วง 2 ปีที่ผ่านมา</li>\n<li>พนักงานหญิงถูกปฏิบัติไม่ดีกว่าพนักงานชาย 30% และพนักงานเพศอื่นๆ โดนมากกว่าถึง 43%</li>\n<li>บริษัทจะแก้ปัญหา 4 ด้าน ได้แก่ แก้ไขสภาพแวดล้อมในการทำงานที่ทุกคนรู้สึกปลอดภัย, เพิ่มความหลากหลายในการจ้างงาน เพิ่มจำนวนพนักงานหญิงให้มีสัดส่วนอย่างน้อย 24%, ยกเครื่องฝ่าย HR ใหม่ และจ้างงาน Chief People Officer คนใหม่, เพิ่มการตรวจสอบพนักงานระดับผู้จัดการมากขึ้น เพื่อให้พนักงานกล้าที่จะออกมาพูดถึงปัญหาที่พบเจอ</li>\n</ul>\n<p>ปัจจุบัน Ubisoft เป็นองค์กรขนาดใหญ่ที่มีพนักงานราว 19,000 คน มีออฟฟิศและสตูดิโอกระจายตัวกัน 40 แห่งทั่วโลก</p>\n<p><img alt="No Description" src="https://www.blognone.com/sites/default/files/externals/aa6a2b78b4eef7323a45fd98501cdbf4.jpg" ></p>\n<p>ที่มา - <a href="https://www.gamespot.com/articles/ubisoft-ceo-reveals-huge-number-of-employees-who-have-witnessed-misconduct/1100-6482878/">Gamespot</a>, ภาพจาก <a href="https://www.facebook.com/LifeAtUbisoft/photos/a.862752337156746/2276432809122018">Facebook Ubisoft</a></p>',
+			'<p>จาก<a href="https://www.blognone.com/node/117969">ปัญหาความขัดแย้งภายใน Ubisoft เรื่องวัฒนธรรมการทำงาน</a> ที่<a href="https://www.blognone.com/node/117418">ทำให้ผู้บริหารต้องออกจากบริษัทไปหลายคน</a> ล่าสุด  Yves Guillemot ผู้ก่อตั้งและซีอีโอของ Ubisoft ส่งอีเมลภายในถึงพนักงาน เพื่อสรุปสถานการณ์ที่เกิดขึ้นหลังตั้งทีมสอบสวนเรื่องนี้เป็นการภายใน</p>\n<p>เนื้อหาในอีเมลถูกนำมาเผยแพร่ต่อทาง Gamespot มีประเด็นดังนี้</p>\n<ul>\n<li>จากการสอบสวนภายในบริษัท มีพนักงานเข้าร่วมให้ข้อมูลกว่า 14,000 คน พบว่ามีพนักงานถึง 25% ที่เคยพบหรือเคยเห็น "การปฏิบัติตัวที่ไม่เหมาะสม" ในรูปแบบต่างๆ ช่วง 2 ปีที่ผ่านมา</li>\n<li>พนักงานหญิงถูกปฏิบัติไม่ดีกว่าพนักงานชาย 30% และพนักงานเพศอื่นๆ โดนมากกว่าถึง 43%</li>\n<li>บริษัทจะแก้ปัญหา 4 ด้าน ได้แก่ แก้ไขสภาพแวดล้อมในการทำงานที่ทุกคนรู้สึกปลอดภัย, เพิ่มความหลากหลายในการจ้างงาน เพิ่มจำนวนพนักงานหญิงให้มีสัดส่วนอย่างน้อย 24%, ยกเครื่องฝ่าย HR ใหม่ และจ้างงาน Chief People Officer คนใหม่, เพิ่มการตรวจสอบพนักงานระดับผู้จัดการมากขึ้น เพื่อให้พนักงานกล้าที่จะออกมาพูดถึงปัญหาที่พบเจอ</li>\n</ul>\n<p>ปัจจุบัน Ubisoft เป็นองค์กรขนาดใหญ่ที่มีพนักงานราว 19,000 คน มีออฟฟิศและสตูดิโอกระจายตัวกัน 40 แห่งทั่วโลก</p>\n<p><div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="No Description" src="https://www.blognone.com/sites/default/files/externals/aa6a2b78b4eef7323a45fd98501cdbf4.jpg" layout="responsive" width="1000" height="667"></amp-img></div></p>\n<p>ที่มา - <a href="https://www.gamespot.com/articles/ubisoft-ceo-reveals-huge-number-of-employees-who-have-witnessed-misconduct/1100-6482878/">Gamespot</a>, ภาพจาก <a href="https://www.facebook.com/LifeAtUbisoft/photos/a.862752337156746/2276432809122018">Facebook Ubisoft</a></p>',
 		],
 	])('should convert <img> to <amp-img> correctly', async (htmlTag, ampTag) => {
 		await expectTransform(htmlTag, ampTag)
@@ -105,6 +106,14 @@ describe('Convert YouTube to <amp-youtube>', () => {
 			'<iframe width="560" height="315" src="https://www.youtube.com/embed/QAg9CpiDXGo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
 			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-youtube layout="responsive" width="560" height="315" data-videoid="QAg9CpiDXGo" style="margin-top: 16px; margin-bottom: 16px;"></amp-youtube></div>',
 		],
+		[
+			'<iframe width="640" height="390" src="//www.youtube.com/embed/zBJq0l0v6Qs" frameborder="0" allowfullscreen=""></iframe>',
+			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-youtube layout="responsive" width="640" height="390" data-videoid="zBJq0l0v6Qs" style="margin-top: 16px; margin-bottom: 16px;"></amp-youtube></div>',
+		],
+		[
+			'<iframe width="640" height="360" src="//www.youtube.com/embed/gOyIA8EK2R0?feature=player_embedded" frameborder="0" allowfullscreen></iframe>',
+			'<div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-youtube layout="responsive" width="640" height="360" data-videoid="gOyIA8EK2R0" style="margin-top: 16px; margin-bottom: 16px;"></amp-youtube></div>',
+		],
 	])('should convert youtube video correctly', async (htmlTag, ampTag) => {
 		await expectTransform(htmlTag, ampTag)
 	})
@@ -112,14 +121,6 @@ describe('Convert YouTube to <amp-youtube>', () => {
 
 describe('Convert iframe to <amp-iframe>', () => {
 	test.each([
-		[
-			'<iframe width="640" height="390" src="//www.youtube.com/embed/zBJq0l0v6Qs" frameborder="0" allowfullscreen=""></iframe>',
-			'<div style="width: 100%; margin: auto;"><amp-iframe layout="responsive" width="640" height="390" src="https://www.youtube.com/embed/zBJq0l0v6Qs" sandbox="allow-scripts allow-same-origin"><amp-img layout="responsive" alt="loading" placeholder="" src="/assets/loading.gif" width="100" height="100"></amp-img></amp-iframe></div>',
-		],
-		[
-			'<iframe width="640" height="360" src="//www.youtube.com/embed/gOyIA8EK2R0?feature=player_embedded" frameborder="0" allowfullscreen></iframe>',
-			'<div style="width: 100%; margin: auto;"><amp-iframe layout="responsive" width="640" height="360" src="https://www.youtube.com/embed/gOyIA8EK2R0?feature=player_embedded" sandbox="allow-scripts allow-same-origin"><amp-img layout="responsive" alt="loading" placeholder="" src="/assets/loading.gif" width="100" height="100"></amp-img></amp-iframe></div>',
-		],
 		[
 			'<p>ศาสตร์การประกอบคอมพิวเตอร์อาจเป็นเรื่องยากสำหรับหลายคน ล่าสุดมีเกมสอนประกอบคอมพิวเตอร์แบบสมจริง ภาพสามมิติ ที่มีงบประมาณให้คุณเลือกฮาร์ดแวร์เข้ามาประกอบใส่แบบภาพสมจริงทั้งเคส เมนบอร์ด การ์ดจอ เปิดให้ดาวน์โหลดช่วง pre-alpha ฟรีครับ ลองเข้าไปเล่นกันได้</p>\n<p>ที่มา - <a href="https://pcbuildingsimulator.wordpress.com/">PC Building Simulator</a></p>\n<p><a href="http://upic.me/show/60485762"><img alt="alt=&quot;upic.me&quot;" src="https://www.blognone.com/sites/default/files/externals/78d2fef8e5cd6471e44ce58b174852f8.jpg" ></a></p>\n<iframe></iframe>',
 			'<p>ศาสตร์การประกอบคอมพิวเตอร์อาจเป็นเรื่องยากสำหรับหลายคน ล่าสุดมีเกมสอนประกอบคอมพิวเตอร์แบบสมจริง ภาพสามมิติ ที่มีงบประมาณให้คุณเลือกฮาร์ดแวร์เข้ามาประกอบใส่แบบภาพสมจริงทั้งเคส เมนบอร์ด การ์ดจอ เปิดให้ดาวน์โหลดช่วง pre-alpha ฟรีครับ ลองเข้าไปเล่นกันได้</p>\n<p>ที่มา - <a href="https://pcbuildingsimulator.wordpress.com/">PC Building Simulator</a></p>\n<p><a href="http://upic.me/show/60485762"><div style="width: 100vw; margin: 0 calc(50% - 50vw);"><amp-img alt="alt=&quot;upic.me&quot;" src="https://www.blognone.com/sites/default/files/externals/78d2fef8e5cd6471e44ce58b174852f8.jpg" layout="responsive" width="656" height="526"></amp-img></div></a></p>\n<div></div>',

@@ -59,12 +59,13 @@ module.exports = {
 		],
 		'@typescript-eslint/await-thenable': 'off',
 		'@typescript-eslint/no-use-before-define': 'off',
-		'@typescript-eslint/await-thenable': 'off',
 		'@typescript-eslint/prefer-regexp-exec': 'off',
 		'@typescript-eslint/no-unused-expressions': 'off',
 		'@typescript-eslint/no-inferrable-types': 'off',
 		'@typescript-eslint/no-var-requires': 'off',
 		'@typescript-eslint/ban-ts-ignore': 'off',
+		'@typescript-eslint/no-unsafe-assignment': 'off',
+		'@typescript-eslint/no-unsafe-return': 'off',
 
 		// import
 		'import/extensions': [

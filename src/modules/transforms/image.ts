@@ -1,18 +1,22 @@
-import { getCachedImageSize } from 'modules/utils/imageSize'
+import cacheManager from 'cache-manager'
 import { filter } from 'lodash'
-import parse5 from 'parse5'
-import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
 import {
 	DEFAULT_HEIGHT,
 	DEFAULT_WIDTH,
 	responsive,
 } from 'modules/constants/image'
+import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
+import { getCachedImageSize } from 'modules/utils/imageSize'
+import parse5 from 'parse5'
 
-export default async function transformImg(node: parse5.DefaultTreeElement) {
+export default async function transformImg(
+	node: parse5.DefaultTreeElement,
+	cache: cacheManager.Cache,
+) {
 	let imageSize
 	const imageSrc = getAttribute(node, 'src') ?? ''
 	try {
-		imageSize = await getCachedImageSize(imageSrc)
+		imageSize = await getCachedImageSize(imageSrc, cache)
 	} catch (e) {
 		console.warn(`Failed to get image size: ${imageSrc}`, e)
 		imageSize = { width: 1920, height: 1280 }
