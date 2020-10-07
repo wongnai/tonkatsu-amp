@@ -20,7 +20,7 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 			return reject(new Error('Unsupported scheme'))
 		}
 
-		const req = requestFunction(parsedUrl, (res) => {
+		const req = requestFunction(parsedUrl, res => {
 			let chunks = Buffer.alloc(0)
 			let lastError: Error
 
@@ -36,7 +36,7 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 				return
 			}
 
-			res.on('data', (chunk) => {
+			res.on('data', chunk => {
 				chunks = Buffer.concat([chunks, chunk])
 
 				try {
@@ -56,7 +56,7 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 			})
 		})
 
-		req.on('error', (err) => {
+		req.on('error', err => {
 			reject(err)
 		})
 	})

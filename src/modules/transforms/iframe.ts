@@ -1,10 +1,6 @@
 import parse5 from 'parse5'
 import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
-import {
-	DEFAULT_WIDTH,
-	DEFAULT_HEIGHT,
-	responsive,
-} from 'modules/constants/image'
+import { DEFAULT_WIDTH, DEFAULT_HEIGHT, responsive } from 'modules/constants/image'
 
 export default function transformIframe(node: parse5.DefaultTreeElement) {
 	const frameWidth = getAttribute(node, 'width') ?? DEFAULT_WIDTH
@@ -58,10 +54,8 @@ export default function transformIframe(node: parse5.DefaultTreeElement) {
 		{ name: 'sandbox', value: 'allow-scripts allow-same-origin' },
 	]
 
-	const wrapper = (parse5.parseFragment(
-		'<div />',
-	) as parse5.DefaultTreeDocumentFragment)
+	const wrapper = (parse5.parseFragment('<div />') as parse5.DefaultTreeDocumentFragment)
 		.childNodes[0] as parse5.DefaultTreeElement
-	setAttribute(wrapper, 'style', `width: 100%; margin: auto;`)
+	setAttribute(wrapper, 'style', 'width: 100%; margin: auto;')
 	wrap(node, wrapper)
 }
