@@ -1,4 +1,5 @@
 import cacheManager from 'cache-manager'
+import { walk } from 'modules/lib/walk'
 import transformFacebook from 'modules/transforms/facebook'
 import transformFont from 'modules/transforms/fonts'
 import transformIframe from 'modules/transforms/iframe'
@@ -7,7 +8,6 @@ import transformInstagram from 'modules/transforms/instagram'
 import transformTwitter from 'modules/transforms/twitter'
 import transformYoutube from 'modules/transforms/youtube'
 import { getAttribute } from 'modules/utils/dom'
-import { walk } from 'modules/utils/walk'
 import parse5 from 'parse5'
 
 const filterOut = (node: parse5.DefaultTreeElement) => {
@@ -17,13 +17,10 @@ const filterOut = (node: parse5.DefaultTreeElement) => {
 	node.childNodes.length = 0
 }
 
-export default async function htmlToAmp(
-	htmlString: string,
-	cache: cacheManager.Cache,
-) {
+export default async function htmlToAmp(htmlString: string, cache: cacheManager.Cache) {
 	const ast = parse5.parse(htmlString.trim()) as parse5.DefaultTreeDocument
 
-	await walk(ast, async (node) => {
+	await walk(ast, async node => {
 		const treeNode = node as parse5.DefaultTreeElement
 		switch (treeNode.nodeName) {
 			case 'img':
@@ -64,7 +61,5 @@ export default async function htmlToAmp(
 				break
 		}
 	})
-	return parse5.serialize(
-		(ast.childNodes[0] as parse5.DefaultTreeDocument).childNodes[1],
-	)
+	return parse5.serialize((ast.childNodes[0] as parse5.DefaultTreeDocument).childNodes[1])
 }

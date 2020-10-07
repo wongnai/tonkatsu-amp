@@ -1,6 +1,10 @@
+import cjs from '@rollup/plugin-commonjs'
+import typescript from '@rollup/plugin-typescript'
+import cleaner from 'rollup-plugin-cleaner'
 import includePaths from 'rollup-plugin-includepaths'
 import { terser } from 'rollup-plugin-terser'
-import typescript from 'rollup-plugin-typescript2'
+import visualizer from 'rollup-plugin-visualizer'
+import config from './package.json'
 
 const globalsLibraries = {
 	parse5: 'parse5',
@@ -13,34 +17,40 @@ const globalsLibraries = {
 	'cache-manager-ioredis': 'cache-manager-ioredis',
 }
 
-module.exports = {
+const esm = {
 	input: 'src/index.ts',
 	output: [
 		{
-			file: 'lib/index.js',
+			dir: config.deploy,
 			format: 'cjs',
 			globals: globalsLibraries,
+			sourcemap: true,
 		},
 		{
-			file: 'lib/index.es.js',
+			dir: config.deploy,
 			format: 'esm',
 			globals: globalsLibraries,
+			sourcemap: true,
 		},
 	],
 	plugins: [
+		cleaner({
+			targets: [config.deploy],
+		}),
+		includePaths({
+			paths: ['./src'],
+			extensions: ['.ts'],
+			external: ['parse5', 'lodash', 'image-size', 'cache-manager', 'cache-manager-ioredis'],
+		}),
+		typescript(),
+		cjs(),
 		terser({
 			module: true,
 		}),
-		typescript(),
-		includePaths({
-			paths: ['src'],
+		visualizer({
+			filename: './dist/stats.esm.html',
 		}),
 	],
-	external: [
-		'parse5',
-		'lodash',
-		'image-size',
-		'cache-manager',
-		'cache-manager-ioredis',
-	],
 }
+
+export default [esm]

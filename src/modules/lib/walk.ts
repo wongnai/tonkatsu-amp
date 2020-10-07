@@ -1,4 +1,5 @@
-import { ParentNode, Node, DefaultTreeParentNode } from 'parse5'
+/* eslint-disable no-await-in-loop */
+import { DefaultTreeParentNode, Node, ParentNode } from 'parse5'
 
 export async function walk(
 	node: ParentNode,
