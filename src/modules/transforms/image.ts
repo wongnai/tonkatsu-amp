@@ -1,5 +1,5 @@
 import cacheManager from 'cache-manager'
-import { filter } from 'lodash'
+import filter from 'lodash/filter'
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH, responsive } from 'modules/constants/image'
 import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
 import { getCachedImageSize } from 'modules/utils/imageSize'

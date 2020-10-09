@@ -1,4 +1,5 @@
 import cjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import cleaner from 'rollup-plugin-cleaner'
 import includePaths from 'rollup-plugin-includepaths'
@@ -19,20 +20,13 @@ const globalsLibraries = {
 
 const esm = {
 	input: 'src/index.ts',
-	output: [
-		{
-			dir: config.deploy,
-			format: 'cjs',
-			globals: globalsLibraries,
-			sourcemap: true,
-		},
-		{
-			dir: config.deploy,
-			format: 'esm',
-			globals: globalsLibraries,
-			sourcemap: true,
-		},
-	],
+	output: {
+		dir: config.deploy,
+		format: 'cjs',
+		globals: globalsLibraries,
+		sourcemap: true,
+	},
+
 	plugins: [
 		cleaner({
 			targets: [config.deploy],
@@ -40,13 +34,20 @@ const esm = {
 		includePaths({
 			paths: ['./src'],
 			extensions: ['.ts'],
-			external: ['parse5', 'lodash', 'image-size', 'cache-manager', 'cache-manager-ioredis'],
+			external: [
+				'parse5',
+				'lodash/filter',
+				'lodash/get',
+				'lodash/merge',
+				'image-size',
+				'cache-manager',
+				'cache-manager-ioredis',
+			],
 		}),
-		typescript(),
 		cjs(),
-		terser({
-			module: true,
-		}),
+		resolve(),
+		typescript(),
+		terser(),
 		visualizer({
 			filename: './dist/stats.esm.html',
 		}),

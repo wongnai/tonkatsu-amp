@@ -1,5 +1,5 @@
+import get from 'lodash/get'
 import parse5 from 'parse5'
-import { get } from 'lodash'
 
 export function getAttribute(node: parse5.DefaultTreeElement, nameToFind: string) {
 	return get(
