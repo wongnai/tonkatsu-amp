@@ -1,3 +1,3 @@
 import App from './App'
 
-module.exports = App
+export default App

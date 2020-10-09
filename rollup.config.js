@@ -18,15 +18,14 @@ const globalsLibraries = {
 	'cache-manager-ioredis': 'cache-manager-ioredis',
 }
 
-const esm = {
-	input: 'src/index.ts',
+export default {
+	input: config.main,
 	output: {
 		dir: config.deploy,
 		format: 'cjs',
 		globals: globalsLibraries,
 		sourcemap: true,
 	},
-
 	plugins: [
 		cleaner({
 			targets: [config.deploy],
@@ -35,17 +34,19 @@ const esm = {
 			paths: ['./src'],
 			extensions: ['.ts'],
 			external: [
-				'parse5',
-				'lodash/filter',
-				'lodash/get',
-				'lodash/merge',
-				'image-size',
 				'cache-manager',
 				'cache-manager-ioredis',
+				'http',
+				'https',
+				'url',
+				'fs',
+				'path',
+				'events',
+				'util',
 			],
 		}),
-		cjs(),
 		resolve(),
+		cjs(),
 		typescript(),
 		terser(),
 		visualizer({
@@ -53,5 +54,3 @@ const esm = {
 		}),
 	],
 }
-
-export default [esm]
