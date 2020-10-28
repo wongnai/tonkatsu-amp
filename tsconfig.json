@@ -1,35 +1,29 @@
 {
-  "compilerOptions": {
-    "baseUrl": "src",
-    "module": "esnext",
-    "target": "es2016",
-    "lib": ["es6", "es7", "dom", "esnext.asynciterable"],
-    "sourceMap": true,
-    "allowJs": false,
-    "moduleResolution": "node",
-    "rootDir": "src",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "configFile": "./tslint.json"
-      }
-    ],
-    "types": [
-      "@types/jest"
-    ],
-    "typeRoots": [
-      "types"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "src/test",
-  ]
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"module": "esnext",
+		"target": "es2016",
+		"lib": ["es6", "es7", "dom", "esnext.asynciterable"],
+		"sourceMap": true,
+		"importHelpers": true,
+		"allowJs": false,
+		"moduleResolution": "node",
+		"rootDir": "src",
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noUnusedLocals": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"plugins": [
+			{
+				"name": "typescript-tslint-plugin",
+				"configFile": "./tslint.json"
+			}
+		],
+		"types": ["@types/jest"],
+		"typeRoots": ["types"]
+	},
+	"exclude": ["node_modules", "src/test"]
 }
