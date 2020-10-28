@@ -1,65 +1,57 @@
-// use double quotes in json!
-// 1=warn, 2=error
 const path = require('path')
-
-const typescriptConfig = require(path.join(__dirname, '.eslintrc.typescript.js'))
+const typescriptConfig = require(path.join(__dirname, '.eslintrc.ts.js'))
 
 module.exports = {
-	root: true,
+	env: {
+		browser: true,
+		es6: true,
+	},
+	extends: ['airbnb', 'plugin:prettier/recommended'],
+	globals: {
+		Atomics: 'readonly',
+		SharedArrayBuffer: 'readonly',
+	},
 	parser: 'babel-eslint',
 	parserOptions: {
-		ecmaVersion: 6,
+		ecmaFeatures: {
+			jsx: true,
+		},
+		ecmaVersion: 2018,
 		sourceType: 'module',
 	},
 	plugins: ['jest'],
-	env: {
-		browser: true,
-		node: true,
-		commonjs: true,
-		es6: true,
-		'jest/globals': true,
-		jest: true,
-	},
-	globals: {
-		__DEV__: true,
-	},
-	extends: 'airbnb/base',
 	overrides: [typescriptConfig],
 	rules: {
-		// Disable Eslint rules that conflict to Prettier
-		semi: 'off',
-		'max-len': 'off',
-		'no-tabs': 'off',
-		'comma-dangle': 'off',
-		indent: 'off',
-
-		'no-unused-vars': [2, { args: 'none' }],
-		'dot-notation': [0], // must do because of immutable migration
+		semi: [2, 'never'],
+		'no-unused-vars': [2, { args: 'none' }], // ex (state, props) -> props never used
+		indent: [0, 'tab', { SwitchCase: 1 }], // after git commit -> failed
 		'space-before-function-paren': [0],
 		'no-underscore-dangle': [0], // _ before action name in actions.js
+		'no-tabs': [0],
 		'no-param-reassign': [0], // eg. function(a) { a = 12 }
 		'global-require': [0], // eg. Unexpected require() in src/modules/th.js
 		'no-confusing-arrow': [0],
 		'no-shadow': [0],
+		'max-len': [1], // comment len
 		'consistent-return': [0], // must return at the end of arrow function
 		'prefer-destructuring': [0],
 		'no-use-before-define': [0], // define function after function that use it
 		'no-return-assign': [0], // Arrow function should not return assignment eg. cant do this -> ref={el => (this.picture = el)}
-		'no-console': [2], // use wongnai/js/log instead
+		'no-console': [0], // allow just console.log
 		'object-shorthand': [0], // Expected method shorthand
 		'func-names': [0], // functions must have a name
 		'no-restricted-properties': [1], // Math.pow -> exponentiation operator (**) instead
 		'no-plusplus': [0], // eg. i++ or i--
 		'no-mixed-operators': [0], // eg. ( a + b / c)
-		'class-methods-use-this': [0], // Expected 'this' to be used by class method 'selector'
+		'class-methods-use-this': [0], // Expected "this" to be used by class method "selector"
 		'default-case': [0], // switch must have default case
 		'no-lone-blocks': [0], // Block is redundant eg. { } in switch case
 		'no-unused-expressions': [0],
 		'no-restricted-globals': [0],
 		'no-restricted-syntax': [0],
-		'function-paren-newline': [0], // Unexpected newline after '(' or before ')' of function -> maybe conflict with prettier
+		'function-paren-newline': [0], // Unexpected newline after "(" or before ")" of function -> maybe conflict with prettier
 		'arrow-parens': [2, 'as-needed'],
-		'one-var': [0], // Split 'const' declarations into multiple statements
+		'one-var': [0], // Split "const" declarations into multiple statements
 		'prefer-promise-reject-errors': [0], // Expected the Promise rejection reason to be an Error eg. in ApiManager.js
 		'no-sequences': [0],
 		'no-nested-ternary': [0], // Nesting ternary expressions can make code more difficult to understand
@@ -80,14 +72,19 @@ module.exports = {
 		'semi-style': [0],
 		'no-extra-semi': [0],
 		'generator-star-spacing': [0],
+		'implicit-arrow-linebreak': [0],
+		'linebreak-style': [0],
+		'no-else-return': [0, { allowElseIf: true }],
+		'prefer-object-spread': [0],
 
 		// import
-		'import/no-extraneous-dependencies': [0], // Forbid the import of external modules that are not declared in the package.json's dependencies, devDependencies, optionalDependencies or peerDependencies.
+		'import/no-extraneous-dependencies': [0], // Forbid the import of external modules that are not declared in the package.json"s dependencies, devDependencies, optionalDependencies or peerDependencies.
 		'import/first': [0], // imports that come after non-import statements.
 		'import/no-unresolved': [0],
 		'import/extensions': [0],
 		'import/prefer-default-export': [0],
 		'import/no-mutable-exports': [0], // Forbids the use of mutable exports with var or let
+		'import/newline-after-import': [0],
 		'import/no-dynamic-require': [0],
 
 		// test
@@ -96,8 +93,5 @@ module.exports = {
 		'jest/no-identical-title': 'error',
 		'jest/prefer-to-have-length': 'warn',
 		'jest/valid-expect': 'error',
-
-		// bug
-		'template-curly-spacing': [0],
 	},
 }
