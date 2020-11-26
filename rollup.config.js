@@ -10,12 +10,7 @@ import config from './package.json'
 const globalsLibraries = {
 	parse5: 'parse5',
 	lodash: 'lodash',
-	http: 'http',
-	https: 'https',
 	'image-size': 'image-size',
-	url: 'url',
-	'cache-manager': 'cache-manager',
-	'cache-manager-ioredis': 'cache-manager-ioredis',
 }
 
 export default {
