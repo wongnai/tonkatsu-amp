@@ -3,12 +3,9 @@ import filter from 'lodash/filter'
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH, responsive } from 'modules/constants/image'
 import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
 import { getCachedImageSize } from 'modules/utils/imageSize'
-import parse5 from 'parse5'
+import { Element, parseFragment } from 'parse5'
 
-export default async function transformImg(
-	node: parse5.DefaultTreeElement,
-	cache: cacheManager.Cache,
-) {
+export default async function transformImg(node: Element, cache: cacheManager.Cache) {
 	let imageSize
 	const imageSrc = getAttribute(node, 'src') ?? ''
 	try {
@@ -29,8 +26,7 @@ export default async function transformImg(
 		{ name: 'height', value: imageSize.height?.toString() ?? DEFAULT_HEIGHT },
 	]
 
-	const wrapper = (parse5.parseFragment('<div />') as parse5.DefaultTreeDocumentFragment)
-		.childNodes[0] as parse5.DefaultTreeElement
+	const wrapper = parseFragment('<div />').childNodes[0] as Element
 	setAttribute(wrapper, 'style', 'width: 100vw; margin: 0 calc(50% - 50vw);')
 	wrap(node, wrapper)
 }

@@ -23,7 +23,7 @@ module.exports = {
 	globals: {
 		__DEV__: true,
 	},
-	extends: 'airbnb/base',
+	extends: ['airbnb-base'],
 	overrides: [typescriptConfig],
 	rules: {
 		// Disable Eslint rules that conflict to Prettier

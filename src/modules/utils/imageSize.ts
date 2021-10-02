@@ -47,7 +47,7 @@ export function getImageSize(url: string): Promise<ISizeCalculationResult> {
 						resolve(size)
 					}
 				} catch (e) {
-					lastError = e
+					lastError = e as Error
 				}
 			})
 

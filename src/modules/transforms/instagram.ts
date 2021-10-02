@@ -1,13 +1,13 @@
 import { height, responsive, width } from 'modules/constants/image'
 import { walk } from 'modules/lib/walk'
 import { getAttribute } from 'modules/utils/dom'
-import parse5 from 'parse5'
+import { Element } from 'parse5'
 
-export default function transformInstagram(node: parse5.DefaultTreeElement) {
+export default function transformInstagram(node: Element) {
 	const regex = /https:\/\/www.instagram\.com\/p\/([A-Za-z0-9]+)\//
 
 	return walk(node, subNode => {
-		const treeNode = subNode as parse5.DefaultTreeElement
+		const treeNode = subNode as Element
 		switch (treeNode.nodeName) {
 			case 'a':
 				if (getAttribute(treeNode, 'href')?.search('https://www.instagram.com/') === 0) {

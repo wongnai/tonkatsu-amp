@@ -10,7 +10,7 @@ import transformYoutube from 'modules/transforms/youtube'
 import { getAttribute } from 'modules/utils/dom'
 import parse5 from 'parse5'
 
-const filterOut = (node: parse5.DefaultTreeElement) => {
+const filterOut = (node: parse5.Element) => {
 	node.nodeName = 'div'
 	node.tagName = 'div'
 	node.attrs.length = 0
@@ -18,10 +18,10 @@ const filterOut = (node: parse5.DefaultTreeElement) => {
 }
 
 export default async function htmlToAmp(htmlString: string, cache: cacheManager.Cache) {
-	const ast = parse5.parse(htmlString.trim()) as parse5.DefaultTreeDocument
+	const ast = parse5.parse(htmlString.trim())
 
 	await walk(ast, async node => {
-		const treeNode = node as parse5.DefaultTreeElement
+		const treeNode = node as parse5.Element
 		switch (treeNode.nodeName) {
 			case 'img':
 				await transformImg(treeNode, cache)
@@ -61,5 +61,5 @@ export default async function htmlToAmp(htmlString: string, cache: cacheManager.
 				break
 		}
 	})
-	return parse5.serialize((ast.childNodes[0] as parse5.DefaultTreeDocument).childNodes[1])
+	return parse5.serialize((ast.childNodes[0] as parse5.Element).childNodes[1])
 }

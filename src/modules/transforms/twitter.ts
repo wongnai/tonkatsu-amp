@@ -1,12 +1,12 @@
 import { height, responsive, width } from 'modules/constants/image'
 import { walk } from 'modules/lib/walk'
 import { getAttribute } from 'modules/utils/dom'
-import parse5 from 'parse5'
+import { Element } from 'parse5'
 
-export default function transformTwitter(node: parse5.DefaultTreeElement) {
+export default function transformTwitter(node: Element) {
 	const regex = /https:\/\/twitter\.com\/.+\/status[es]*\/([0-9]+).*/
 	return walk(node, subNode => {
-		const treeNode = subNode as parse5.DefaultTreeElement
+		const treeNode = subNode as Element
 		switch (treeNode.nodeName) {
 			case 'a':
 				if (getAttribute(treeNode, 'href')?.search('https://twitter.com/') === 0) {

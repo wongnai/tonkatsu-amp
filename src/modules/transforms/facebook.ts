@@ -1,12 +1,8 @@
-import parse5 from 'parse5'
+import { DEFAULT_HEIGHT, DEFAULT_WIDTH, responsive } from 'modules/constants/image'
 import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
-import {
-	DEFAULT_WIDTH,
-	DEFAULT_HEIGHT,
-	responsive,
-} from 'modules/constants/image'
+import { Element, parseFragment } from 'parse5'
 
-export default function transformFacebook(node: parse5.DefaultTreeElement) {
+export default function transformFacebook(node: Element) {
 	const postWidth = getAttribute(node, 'width') ?? DEFAULT_WIDTH
 	const postHeight = getAttribute(node, 'height') ?? DEFAULT_HEIGHT
 	const src = decodeURIComponent(getAttribute(node, 'src') ?? '')
@@ -26,10 +22,7 @@ export default function transformFacebook(node: parse5.DefaultTreeElement) {
 		{ name: 'data-href', value: matches[2] },
 	]
 
-	const wrapper = (parse5.parseFragment(
-		'<div />',
-	) as parse5.DefaultTreeDocumentFragment)
-		.childNodes[0] as parse5.DefaultTreeElement
+	const wrapper = parseFragment('<div />').childNodes[0] as Element
 	setAttribute(wrapper, 'style', `max-width: ${postWidth}px; margin: auto;`)
 	wrap(node, wrapper)
 }
