@@ -1,7 +1,7 @@
 import { getAttribute } from 'modules/utils/dom'
-import parse5 from 'parse5'
+import { Element } from 'parse5'
 
-export default function transformFont(node: parse5.DefaultTreeElement) {
+export default function transformFont(node: Element) {
 	node.nodeName = 'span'
 	node.tagName = 'span'
 	node.attrs = [

@@ -21,7 +21,7 @@ module.exports = {
 	env: {
 		jest: true,
 	},
-	extends: ['airbnb/base', 'plugin:@typescript-eslint/recommended-requiring-type-checking'],
+	extends: ['airbnb-base', 'plugin:@typescript-eslint/recommended-requiring-type-checking'],
 	rules: {
 		// Disable Eslint rules that conflict to Prettier
 		semi: 'off',

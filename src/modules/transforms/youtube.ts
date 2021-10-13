@@ -1,12 +1,8 @@
-import parse5 from 'parse5'
+import { DEFAULT_HEIGHT, DEFAULT_WIDTH, responsive } from 'modules/constants/image'
 import { getAttribute, setAttribute, wrap } from 'modules/utils/dom'
-import {
-	DEFAULT_WIDTH,
-	DEFAULT_HEIGHT,
-	responsive,
-} from 'modules/constants/image'
+import { Element, parseFragment } from 'parse5'
 
-export default function transformYoutube(node: parse5.DefaultTreeElement) {
+export default function transformYoutube(node: Element) {
 	const youtubeSrc = getAttribute(node, 'src') ?? ''
 	const videoWidth = getAttribute(node, 'width') ?? DEFAULT_WIDTH
 	const videoHeight = getAttribute(node, 'height') ?? DEFAULT_HEIGHT
@@ -26,10 +22,7 @@ export default function transformYoutube(node: parse5.DefaultTreeElement) {
 		{ name: 'style', value: 'margin-top: 16px; margin-bottom: 16px;' },
 	]
 
-	const wrapper = (parse5.parseFragment(
-		'<div />',
-	) as parse5.DefaultTreeDocumentFragment)
-		.childNodes[0] as parse5.DefaultTreeElement
+	const wrapper = parseFragment('<div />').childNodes[0] as Element
 	setAttribute(wrapper, 'style', 'width: 100vw; margin: 0 calc(50% - 50vw);')
 	wrap(node, wrapper)
 }
